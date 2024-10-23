@@ -6,7 +6,7 @@ using Unity.Services.Authentication;
 using System.Threading.Tasks;
 using TMPro;
 using System;
-using UnityEditor.Search;
+//using UnityEditor.Search;
 
 public class AuthManager : MonoBehaviour
 {
