@@ -55,7 +55,7 @@ public class OutputAudioRecorder : MonoBehaviour
         Debug.Log("Generated MP3 File Path: " + filePath);
 
         // Refresh the Asset Database to make Unity aware of the changes
-        UnityEditor.AssetDatabase.Refresh();
+        // UnityEditor.AssetDatabase.Refresh();
     }
     catch (Exception e)
     {

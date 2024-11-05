@@ -268,10 +268,11 @@ namespace Whisper
         }
         
         /// <summary>
-        /// Create a new instance of Whisper streaming transcription from microphone input.
+        /// Create a new instance of Whisper streaming transcription from 
+        /// input.
         /// </summary>
         /// <returns>New streaming transcription. Null if failed.</returns>
-        public async Task<WhisperStream> CreateStream(MicrophoneRecord microphone)
+/*        public async Task<WhisperStream> CreateStream(MicrophoneRecord microphone)
         {
             var isLoaded = await CheckIfLoaded();
             if (!isLoaded)
@@ -288,7 +289,7 @@ namespace Whisper
                 dropOldBuffer, useVad);
             var stream = new WhisperStream(_whisper, param, microphone);
             return stream;
-        }
+        }*/
         
         private void UpdateParams()
         {

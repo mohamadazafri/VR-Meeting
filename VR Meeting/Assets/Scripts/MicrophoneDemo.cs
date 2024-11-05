@@ -13,8 +13,8 @@ namespace Whisper.Samples
     public class MicrophoneDemo : MonoBehaviour
     {
 
-        public MicrophoneRecord microphoneRecord;
-        public bool streamSegments = true;
+/*        public MicrophoneRecord microphoneRecord;
+*/        public bool streamSegments = true;
         public bool printLanguage = true;
 
         [Header("UI")] 
