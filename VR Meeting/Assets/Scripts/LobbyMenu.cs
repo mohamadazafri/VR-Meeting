@@ -35,7 +35,7 @@ public class LobbyMenu : MonoBehaviour
     public Button scheduleMeetingSubmitButton;
 
     // Other Components
-    public NetworkConnect networkConnect;
+    //public NetworkConnect networkConnect;
     public CloudSave cloudSave;
     public MeetingsDisplay meetingDisplay;
 

@@ -136,8 +136,7 @@ PlayerSettings:
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
   bundleVersion: 0.1.0
-  preloadedAssets:
-  - {fileID: 586506148574646321, guid: 08766aa18eea88047b467f29737edd1b, type: 2}
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -928,11 +927,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 77fe9516-098a-430c-81ae-5001cf6d0dce
+  cloudProjectId: 0aa6b4c4-353d-4dc2-bad7-774bcc533719
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: VR Meeting
-  organizationId: taufiqjurimi
+  organizationId: mohamadazafri
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

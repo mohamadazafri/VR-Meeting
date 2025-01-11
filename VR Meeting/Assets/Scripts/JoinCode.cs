@@ -7,17 +7,17 @@ public class JoinCode : MonoBehaviour
 {
     public TMP_InputField lobbyCodeInput;
     public TextMeshProUGUI lobbyCodeText;
-    public NetworkConnect networkConnect;
+    //public NetworkConnect networkConnect;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        // You might want to check if networkConnect is not null before using it
-        if (networkConnect != null)
-        {
-            UpdateLobbyCode(networkConnect.getJoinCode());
-        }
-    }
+    //void Start()
+    //{
+    //    // You might want to check if networkConnect is not null before using it
+    //    if (networkConnect != null)
+    //    {
+    //        //UpdateLobbyCode(networkConnect.getJoinCode());
+    //    }
+    //}
 
     public void UpdateLobbyCode(string lobbyCode)
     {
@@ -32,8 +32,8 @@ public class JoinCode : MonoBehaviour
     public void TransferDataToNetworkManager()
     {
         string inputData = lobbyCodeInput.text;
-        networkConnect.setJoinCode(inputData);
-        networkConnect.Join();
+        //networkConnect.setJoinCode(inputData);
+        //networkConnect.Join();
     }
 
 }

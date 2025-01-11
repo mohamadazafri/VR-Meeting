@@ -71,13 +71,31 @@ public class NetworkConnect : MonoBehaviour
                 lobbyOptions.Data.Add("HOST_NAME", hostNameDataObject);
                 lobbyOptions.Data.Add("LOBBY_BG", lobbyBGDataObject);
 
-                currentLobby = await Lobbies.Instance.CreateLobbyAsync(
-                  "Meeting Name", maxConnection, lobbyOptions);
+                //currentLobby = await Lobbies.Instance.CreateLobbyAsync(
+                //  "Meeting Name", maxConnection, lobbyOptions);
 
                 Allocation allocation =
                   await RelayService.Instance.CreateAllocationAsync(maxConnection);
 
-                transport.SetHostRelayData(allocation.RelayServer.IpV4,
+                string newJoinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+
+                DataObject dataObject = new DataObject(DataObject.VisibilityOptions.Public, newJoinCode);
+
+                lobbyOptions.Data.Add("JOIN_CODE", dataObject);
+
+                currentLobby = await Lobbies.Instance.CreateLobbyAsync(
+             "Meeting Name", maxConnection, lobbyOptions);
+
+                //transport.SetHostRelayData(allocation.RelayServer.IpV4,
+                //  (ushort)allocation.RelayServer.Port,
+                //  allocation.AllocationIdBytes, allocation.Key,
+                //  allocation.ConnectionData);
+
+                //NetworkManager.Singleton.NetworkConfig.ConnectionApproval = true;
+
+                //NetworkManager.Singleton.ConnectionApprovalCallback = ConnectionApproval;
+
+                NetworkManager.Singleton.GetComponent<UnityTransport>().SetHostRelayData(allocation.RelayServer.IpV4,
                   (ushort)allocation.RelayServer.Port,
                   allocation.AllocationIdBytes, allocation.Key,
                   allocation.ConnectionData);
@@ -169,7 +187,7 @@ public class NetworkConnect : MonoBehaviour
                 currentLobby = lobby;
                 Debug.Log("joinID");
                 Debug.Log(joinID);
-                
+
                 if (currentLobby.HostId == AuthenticationService.Instance.PlayerId)
                 {
                     LobbyService.Instance.SendHeartbeatPingAsync(currentLobby.Id);

@@ -8,16 +8,16 @@ public class GetKickPlayer : MonoBehaviour
 {
     public TMP_Dropdown dropdown;
     private int playerVal = 0;
-    public NetworkConnect networkConnect;
+    //public NetworkConnect networkConnect;
 
     private void Start()
     {
         // Subscribe to the dropdown's OnValueChanged event
         dropdown.onValueChanged.AddListener(setPlayerVal);
         // Populate the dropdown with the player names
-        List<string> playerList = networkConnect.getPlayerList();
+        //List<string> playerList = NetworkConnect.Instance().getPlayerList();
         dropdown.ClearOptions();
-        dropdown.AddOptions(playerList);
+        //dropdown.AddOptions(playerList);
     }
 
     private void setPlayerVal(int index)
@@ -34,7 +34,7 @@ public class GetKickPlayer : MonoBehaviour
     {
         try
         {
-            await networkConnect.KickPlayer(playerVal);
+            //await networkConnect.KickPlayer(playerVal);
             Debug.Log("after networkConnect.KickPlayer");
         }
         catch (Exception e)
