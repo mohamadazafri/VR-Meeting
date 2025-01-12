@@ -13,4 +13,37 @@ MonoBehaviour:
   m_Name: NetworkPrefabs-45480
   m_EditorClassIdentifier: 
   IsDefault: 0
+<<<<<<< Updated upstream
   List: []
+=======
+  List:
+  - Override: 0
+    Prefab: {fileID: 8276512705107564042, guid: 758ddaa29a4ca384aa49c567573ea49b,
+      type: 3}
+    SourcePrefabToOverride: {fileID: 0}
+    SourceHashToOverride: 0
+    OverridingTargetPrefab: {fileID: 0}
+  - Override: 0
+    Prefab: {fileID: 388912805390696726, guid: 19646794a71c3014184180bdc4d553b6, type: 3}
+    SourcePrefabToOverride: {fileID: 0}
+    SourceHashToOverride: 0
+    OverridingTargetPrefab: {fileID: 0}
+  - Override: 0
+    Prefab: {fileID: 4232365465990637940, guid: 14b4133e8878e024ba5365c4f7678503,
+      type: 3}
+    SourcePrefabToOverride: {fileID: 0}
+    SourceHashToOverride: 0
+    OverridingTargetPrefab: {fileID: 0}
+  - Override: 0
+    Prefab: {fileID: 9094820001784305260, guid: 0d1c972a9f1f65145862dfd093ef8730,
+      type: 3}
+    SourcePrefabToOverride: {fileID: 0}
+    SourceHashToOverride: 0
+    OverridingTargetPrefab: {fileID: 0}
+  - Override: 0
+    Prefab: {fileID: 9174000098215031471, guid: bcb17b56a0e5fb649bc60d3a84081a54,
+      type: 3}
+    SourcePrefabToOverride: {fileID: 0}
+    SourceHashToOverride: 0
+    OverridingTargetPrefab: {fileID: 0}
+>>>>>>> Stashed changes

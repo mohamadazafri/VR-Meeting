@@ -6,7 +6,13 @@ using TMPro;
 public class DisplayJoinCode : MonoBehaviour
 {
     public TextMeshProUGUI lobbyCodeText;
+<<<<<<< Updated upstream
     public NetworkConnect networkConnect;
+=======
+
+
+    //public NetworkConnect networkConnect;
+>>>>>>> Stashed changes
 
     // Start is called before the first frame update
     void Start()
@@ -28,4 +34,11 @@ public class DisplayJoinCode : MonoBehaviour
         }
     }
 
+    public void UpdateRelayCode(string relayCode)
+    {
+        if (relayCode != null)
+        {
+            lobbyCodeText.text = "Relay Code: " + relayCode;
+        }
+    }
 }
