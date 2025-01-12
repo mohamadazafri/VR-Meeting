@@ -18,6 +18,7 @@ using TMPro;
 public class NetworkConnect : MonoBehaviour
 {
     private string joinCode;
+    private string relayCode;
     private static Lobby currentLobby;
     private float heartBeatTimer;
     private string playerId;
@@ -83,12 +84,16 @@ public class NetworkConnect : MonoBehaviour
                   allocation.ConnectionData);
 
                 Debug.LogError("Lobby Code : " + currentLobby.LobbyCode);
+                Debug.LogError("Relay Code : " + newJoinCode);
+
 
                 playerId = await AuthenticationService.Instance.GetPlayerNameAsync();
                 Debug.Log("Player ID: " + playerId);
 
                 joinCode = currentLobby.LobbyCode;
                 joinID = currentLobby.Id;
+
+                relayCode = newJoinCode;
 
                 StartCoroutine(LoadSceneAsync(lobbyBackground, 0));
             }
@@ -119,7 +124,12 @@ public class NetworkConnect : MonoBehaviour
                 JoinAllocation allocation =
                   await RelayService.Instance.JoinAllocationAsync(relayJoinCode);
 
-                transport.SetClientRelayData(
+                //transport.SetClientRelayData(
+                //  allocation.RelayServer.IpV4, (ushort)allocation.RelayServer.Port,
+                //  allocation.AllocationIdBytes, allocation.Key,
+                //  allocation.ConnectionData, allocation.HostConnectionData);
+
+                NetworkManager.Singleton.GetComponent<UnityTransport>().SetClientRelayData(
                   allocation.RelayServer.IpV4, (ushort)allocation.RelayServer.Port,
                   allocation.AllocationIdBytes, allocation.Key,
                   allocation.ConnectionData, allocation.HostConnectionData);
@@ -211,14 +221,45 @@ public class NetworkConnect : MonoBehaviour
             return;
         }
 
-        DisplayJoinCode displayJoinCode = FindObjectOfType<DisplayJoinCode>();
+        //DisplayJoinCode displayJoinCode = FindObjectOfType<DisplayJoinCode>();
+        GameObject displayJoinCode = GameObject.Find("Join Code");
+
         try
         {
-            displayJoinCode.UpdateLobbyCode(lobbyCode);
+            //displayJoinCode.UpdateLobbyCode(lobbyCode);
+            displayJoinCode.GetComponent<TMP_Text>().text = "Join Code: " + lobbyCode;
+
         }
         catch (Exception e)
         {
             Debug.LogError($"Error updating lobby code: {e}");
+        }
+
+        if (displayJoinCode == null)
+        {
+            Debug.LogError("Error: DisplayJoinCode not found in the scene.");
+            return;
+        }
+    }
+
+    private void UpdateRelayCode(string relayCode)
+    {
+        if (relayCode == null)
+        {
+            Debug.LogError("Error: Relay code is null.");
+            return;
+        }
+
+        //DisplayJoinCode displayJoinCode = FindObjectOfType<DisplayJoinCode>();
+        GameObject displayJoinCode = GameObject.Find("Relay Code");
+        try
+        {
+            //displayJoinCode.UpdateRelayCode(relayCode);
+            displayJoinCode.GetComponent<TMP_Text>().text = "Relay Code: " + relayCode;
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Error updating Relay code: {e}");
         }
 
         if (displayJoinCode == null)
@@ -380,6 +421,7 @@ public class NetworkConnect : MonoBehaviour
 
     private IEnumerator LoadSceneAsync(int sceneNumber, int condition)
     {
+           
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneNumber);
 
         while (!asyncLoad.isDone)
@@ -393,21 +435,22 @@ public class NetworkConnect : MonoBehaviour
 
         HandlePlayer(); // TAK CHECK UNTUK SEMUA JUST UNTUK DIRI SENDIRI
         UpdateLobbyCode(joinCode);
+        UpdateRelayCode(relayCode);
 
-        if (condition == 0)
-        {
-            NetworkManager.Singleton.StartHost();
-            markerSpawn();
-        }
-        else if (condition == 1)
-        {
-            NetworkManager.Singleton.StartClient();
-            markerSpawn();
-        }
-        else
-        {
-            NetworkManager.Singleton.Shutdown();
-        }
+            if (condition == 0)
+            {
+                NetworkManager.Singleton.StartHost();
+                markerSpawn();
+            }
+            else if (condition == 1)
+            {
+                NetworkManager.Singleton.StartClient();
+                markerSpawn();
+            }
+            else
+            {
+                NetworkManager.Singleton.Shutdown();
+            }
     }
 
     private void markerSpawn()

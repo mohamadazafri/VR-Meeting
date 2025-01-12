@@ -6,6 +6,7 @@ TagManager:
   tags:
   - WhiteBoard
   - Marker
+  - XROrigin
   layers:
   - Default
   - TransparentFX

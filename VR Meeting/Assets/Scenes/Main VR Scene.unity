@@ -9997,7 +9997,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1528971337}
+      - m_Target: {fileID: 1365758097}
         m_TargetAssemblyTypeName: getMaxPlayer, Assembly-CSharp
         m_MethodName: TransferDataToNetworkManager
         m_Mode: 1
@@ -15962,7 +15962,6 @@ MonoBehaviour:
   createMeetingSubmitButton: {fileID: 701589045}
   joinMeetingSubmitButton: {fileID: 1488405287}
   scheduleMeetingSubmitButton: {fileID: 481183162}
-  networkConnect: {fileID: 1528971335}
   cloudSave: {fileID: 1218895644}
   meetingDisplay: {fileID: 344913736}
   returnButtons:
@@ -16485,6 +16484,169 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1208336993}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1365758095
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1365758102}
+  - component: {fileID: 1365758101}
+  - component: {fileID: 1365758100}
+  - component: {fileID: 1365758099}
+  - component: {fileID: 1365758098}
+  - component: {fileID: 1365758097}
+  - component: {fileID: 1365758096}
+  m_Layer: 0
+  m_Name: Network Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1365758096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365758095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ecdc996342ce7c448041a48be6b1d7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropdown: {fileID: 1541108776}
+  networkConnect: {fileID: 1365758099}
+--- !u!114 &1365758097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365758095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90d52e47a2e54794e98e750f3c334878, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxPlayerInput: {fileID: 164291635}
+  errorText: {fileID: 1331315921}
+  networkConnect: {fileID: 1365758099}
+--- !u!114 &1365758098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365758095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257151bb1dbfa9f40b4bd5838ff45e43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lobbyCodeInput: {fileID: 1055069627}
+  errorText: {fileID: 378931176}
+  networkConnect: {fileID: 1365758099}
+--- !u!114 &1365758099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365758095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 659ae30a32e4ad245a15f740f7ffa47d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxConnection: 20
+  transport: {fileID: 0}
+  authManager: {fileID: 347025016}
+  cloudSave: {fileID: 0}
+  marker: {fileID: 956777926496085208, guid: d6a758ba573507745bda2832dd7d4fe4, type: 3}
+--- !u!114 &1365758100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365758095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6960e84d07fb87f47956e7a81d71c4e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ProtocolType: 1
+  m_MaxPacketQueueSize: 128
+  m_MaxPayloadSize: 6144
+  m_HeartbeatTimeoutMS: 500
+  m_ConnectTimeoutMS: 1000
+  m_MaxConnectAttempts: 60
+  m_DisconnectTimeoutMS: 30000
+  ConnectionData:
+    Address: 127.0.0.1
+    Port: 7777
+    ServerListenAddress: 127.0.0.1
+  DebugSimulator:
+    PacketDelayMS: 0
+    PacketJitterMS: 0
+    PacketDropRate: 0
+--- !u!114 &1365758101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365758095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 593a2fe42fa9d37498c96f9a383b6521, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NetworkConfig:
+    ProtocolVersion: 0
+    NetworkTransport: {fileID: 1365758100}
+    PlayerPrefab: {fileID: 8276512705107564042, guid: 758ddaa29a4ca384aa49c567573ea49b,
+      type: 3}
+    Prefabs:
+      NetworkPrefabsLists:
+      - {fileID: 11400000, guid: 8c66e821e14565f40a0c65c9a7bac000, type: 2}
+    TickRate: 30
+    ClientConnectionBufferTimeout: 10
+    ConnectionApproval: 1
+    ConnectionData: 
+    EnableTimeResync: 0
+    TimeResyncInterval: 30
+    EnsureNetworkVariableLengthSafety: 0
+    EnableSceneManagement: 1
+    ForceSamePrefabs: 1
+    RecycleNetworkIds: 1
+    NetworkIdRecycleDelay: 120
+    RpcHashSize: 0
+    LoadSceneTimeOut: 120
+    SpawnTimeout: 1
+    EnableNetworkLogs: 1
+    OldPrefabList: []
+  RunInBackground: 1
+  LogLevel: 1
+--- !u!4 &1365758102
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365758095}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1370791599
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17829,7 +17991,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1528971336}
+      - m_Target: {fileID: 1365758098}
         m_TargetAssemblyTypeName: GetJoinCode, Assembly-CSharp
         m_MethodName: TransferDataToNetworkManager
         m_Mode: 1
@@ -18272,7 +18434,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1528971332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18365,29 +18527,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxConnection: 20
+  transport: {fileID: 0}
   authManager: {fileID: 347025016}
+  cloudSave: {fileID: 0}
   marker: {fileID: 956777926496085208, guid: d6a758ba573507745bda2832dd7d4fe4, type: 3}
-  HostPlayerIdText: {fileID: 0}
-  PlayerPlayerIdText: {fileID: 0}
-  RegionsDropdown: {fileID: 0}
-  HostAllocationIdText: {fileID: 0}
-  JoinCodeText: {fileID: 0}
-  JoinCodeInput: {fileID: 0}
-  PlayerAllocationIdText: {fileID: 0}
-  PlayerRegionText: {fileID: 0}
-  HostBoundText: {fileID: 0}
-  PlayerBoundText: {fileID: 0}
-  PlayerConnectedText: {fileID: 0}
-  HostMessageInput: {fileID: 0}
-  PlayerMessageInput: {fileID: 0}
-  MainMenuPanel: {fileID: 0}
-  HostPanel: {fileID: 0}
-  PlayerPanel: {fileID: 0}
-  HostMessageReceivedText: {fileID: 0}
-  HostConnectedPlayersText: {fileID: 0}
-  PlayerMessageReceivedText: {fileID: 0}
-  isHost: 0
-  isPlayer: 0
 --- !u!114 &1528971336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50920,6 +51063,7 @@ SceneRoots:
   - {fileID: 1218895645}
   - {fileID: 347025017}
   - {fileID: 1528971334}
+  - {fileID: 1365758102}
   - {fileID: 2107074915}
   - {fileID: 662564190}
   - {fileID: 7882577861747267661}
