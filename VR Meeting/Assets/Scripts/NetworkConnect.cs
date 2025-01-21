@@ -14,6 +14,7 @@ using Unity.Services.Lobbies.Models;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 using TMPro;
+using Samples.Whisper;
 
 public class NetworkConnect : MonoBehaviour
 {
@@ -34,6 +35,11 @@ public class NetworkConnect : MonoBehaviour
     public CloudSave cloudSave;
 
     public markerSpawn marker;
+    public WhiteboardSpawner whiteboard;
+    //public whiteboardSpawner whiteboard;
+    //public GameObject whiteboard;
+
+    public TranscriptMeeting transcriptMeeting;
 
     private async void Awake()
     {
@@ -137,7 +143,12 @@ public class NetworkConnect : MonoBehaviour
                 JoinAllocation allocation =
                   await RelayService.Instance.JoinAllocationAsync(relayJoinCode);
 
-                transport.SetClientRelayData(
+                //transport.SetClientRelayData(
+                //  allocation.RelayServer.IpV4, (ushort)allocation.RelayServer.Port,
+                //  allocation.AllocationIdBytes, allocation.Key,
+                //  allocation.ConnectionData, allocation.HostConnectionData);
+
+                NetworkManager.Singleton.GetComponent<UnityTransport>().SetClientRelayData(
                   allocation.RelayServer.IpV4, (ushort)allocation.RelayServer.Port,
                   allocation.AllocationIdBytes, allocation.Key,
                   allocation.ConnectionData, allocation.HostConnectionData);
@@ -191,9 +202,9 @@ public class NetworkConnect : MonoBehaviour
                 if (currentLobby.HostId == AuthenticationService.Instance.PlayerId)
                 {
                     LobbyService.Instance.SendHeartbeatPingAsync(currentLobby.Id);
-                    Debug.LogError(currentLobby.Id);
-                    Debug.LogError(currentLobby.Data["JOIN_CODE"].Value);
-                    Debug.Log("HeartBeat Ping shit");
+                    //Debug.LogError(currentLobby.Id);
+                    //Debug.LogError(currentLobby.Data["JOIN_CODE"].Value);
+                    //Debug.Log("HeartBeat Ping shit");
                 }
             }
             heartBeatTimer += Time.deltaTime;
@@ -415,12 +426,19 @@ public class NetworkConnect : MonoBehaviour
         if (condition == 0)
         {
             NetworkManager.Singleton.StartHost();
-            markerSpawn();
+
+            //var instance = Instantiate(whiteboard);
+            //var instanceNetworkObject = instance.GetComponent<NetworkObject>();
+            //instanceNetworkObject.Spawn();            
+            //markerSpawn();
+            whiteboardSpawn();
+
         }
         else if (condition == 1)
         {
             NetworkManager.Singleton.StartClient();
-            markerSpawn();
+            //markerSpawn();
+            //whiteboardSpawn();
         }
         else
         {
@@ -432,4 +450,19 @@ public class NetworkConnect : MonoBehaviour
     {
         marker.OnNetworkSpawn();
     }
+
+    private void whiteboardSpawn()
+    {
+        //Whiteboard.Instance.OnNetworkSpawn();
+        //whiteboard.OnNetworkSpawn();
+        //WhiteboardSpawner whiteboard = new WhiteboardSpawner();
+        
+        whiteboard.spawnAllWhiteboard();
+    }
+    //private void whiteboardsSpawn()
+    //{
+    //    whiteboards.OnNetworkSpawn();
+    //}
+
+
 }

@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -28,7 +30,7 @@ public class TeleportPlayer : MonoBehaviour
         GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("Player");
 
         // Add them to the list
-        allPlayer.AddRange(objectsWithTag);
+        //allPlayer.AddRange(objectsWithTag);
 
     }
 
@@ -40,28 +42,40 @@ public class TeleportPlayer : MonoBehaviour
 
     public void Teleport()
     {
-        Debug.Log(numberOfGroups.text);
-        Debug.Log(numberOfParticipants.text);
-        player.transform.position = new Vector3(8.2f, 0.23f, 3.92f);
-        
-        foreach (GameObject obj in allPlayer)
+        var listPlayer = NetworkManager.Singleton.ConnectedClientsList;
+        Debug.Log(NetworkManager.Singleton.ConnectedClientsList);
+
+        List<NetworkObject> clientPlayers = new List<NetworkObject>();
+
+        for(int i = 0; i < NetworkManager.Singleton.ConnectedClientsList.Count; i++)
         {
-            Debug.Log(obj.name);
+            //if (listPlayer[i].ClientId != 0)
+            //{
+                clientPlayers.Add(listPlayer[i].PlayerObject);
+            //}
         }
 
-        AssignParticipantsToGroups();
+
+        //Debug.Log(numberOfGroups.text);
+        //Debug.Log(numberOfParticipants.text);
+        //player.transform.position = new Vector3(8.2f, 0.23f, 3.92f);
+
+        //foreach (GameObject obj in allPlayer)
+        //{
+        //    Debug.Log(obj.name);
+        //}
+
+        AssignParticipantsToGroups(clientPlayers);
     }
 
-    void AssignParticipantsToGroups()
+    void AssignParticipantsToGroups(List<NetworkObject> participantList)
     {
         int groupIndex = 0;
-        //int numOfGroups = int.Parse(numberOfGroups.text);
-        //int numOfParticipants = int.Parse(numberOfParticipants.text);
         int numOfGroups = 4;
         int numOfParticipants = 5;
         float cumulativeOffset = 0; // Track cumulative offset for each group
 
-        foreach (GameObject participant in allPlayer)
+        foreach (NetworkObject participant in participantList)
         {
             // Calculate group index (round-robin assignment)
             groupIndex = groupIndex % numOfGroups;
@@ -83,9 +97,10 @@ public class TeleportPlayer : MonoBehaviour
         }
     }
 
-    void TeleportParticipant(GameObject participant, Vector3 spawnPosition)
+    void TeleportParticipant(NetworkObject participant, Vector3 spawnPosition)
     {
         // Move participant to the spawn position
+
         participant.transform.position = spawnPosition;
         Debug.Log($"{participant.name} teleported to {spawnPosition}");
     }

@@ -15962,7 +15962,6 @@ MonoBehaviour:
   createMeetingSubmitButton: {fileID: 701589045}
   joinMeetingSubmitButton: {fileID: 1488405287}
   scheduleMeetingSubmitButton: {fileID: 481183162}
-  networkConnect: {fileID: 1528971335}
   cloudSave: {fileID: 1218895644}
   meetingDisplay: {fileID: 344913736}
   returnButtons:
@@ -18318,7 +18317,8 @@ MonoBehaviour:
     PlayerPrefab: {fileID: 5075207283912248305, guid: d12a1081c8928ba438546237de10cddc,
       type: 3}
     Prefabs:
-      NetworkPrefabsLists: []
+      NetworkPrefabsLists:
+      - {fileID: 11400000, guid: de15d667ac66fb445ad4d884a55788cf, type: 2}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
@@ -18365,29 +18365,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxConnection: 20
+  transport: {fileID: 0}
   authManager: {fileID: 347025016}
+  cloudSave: {fileID: 0}
   marker: {fileID: 956777926496085208, guid: d6a758ba573507745bda2832dd7d4fe4, type: 3}
-  HostPlayerIdText: {fileID: 0}
-  PlayerPlayerIdText: {fileID: 0}
-  RegionsDropdown: {fileID: 0}
-  HostAllocationIdText: {fileID: 0}
-  JoinCodeText: {fileID: 0}
-  JoinCodeInput: {fileID: 0}
-  PlayerAllocationIdText: {fileID: 0}
-  PlayerRegionText: {fileID: 0}
-  HostBoundText: {fileID: 0}
-  PlayerBoundText: {fileID: 0}
-  PlayerConnectedText: {fileID: 0}
-  HostMessageInput: {fileID: 0}
-  PlayerMessageInput: {fileID: 0}
-  MainMenuPanel: {fileID: 0}
-  HostPanel: {fileID: 0}
-  PlayerPanel: {fileID: 0}
-  HostMessageReceivedText: {fileID: 0}
-  HostConnectedPlayersText: {fileID: 0}
-  PlayerMessageReceivedText: {fileID: 0}
-  isHost: 0
-  isPlayer: 0
+  whiteboard: {fileID: 7882577861747267662}
+  transcriptMeeting: {fileID: 0}
 --- !u!114 &1528971336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26111,6 +26094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fafb054d0f8e2c247ba05dc4c658275b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
   SyncPositionX: 1
   SyncPositionY: 1
   SyncPositionZ: 1
@@ -31297,6 +31281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fafb054d0f8e2c247ba05dc4c658275b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
   SyncPositionX: 1
   SyncPositionY: 1
   SyncPositionZ: 1
@@ -31636,8 +31621,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7882577861747267661}
-  - component: {fileID: 5551726342838955133}
   - component: {fileID: 6353049590661479205}
+  - component: {fileID: 5551726342838955133}
+  - component: {fileID: 7882577861747267662}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -39164,6 +39150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GlobalObjectIdHash: 1051276787
+  InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -42979,6 +42966,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GlobalObjectIdHash: 278415305
+  InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -47361,6 +47349,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7882577861747267662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2351038935962872296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75c5739f7a3e29948aafdfcd3b8e9850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whiteboardMain: {fileID: 7356471337953513417, guid: 4de8213faa23b944da3351ab327b030a,
+    type: 3}
+  whiteboardBreakoutRoom1: {fileID: 7521995480834012032, guid: bff55705894beff4ca6d52c916d12ee9,
+    type: 3}
+  whiteboardBreakoutRoom2: {fileID: 6899713608806140027, guid: fe10a7e6518dd6c419905a842a6b8506,
+    type: 3}
+  whiteboardBreakoutRoom3: {fileID: 3510929580352850008, guid: 4aa321ae90c354a448fbabd12cc4ec3f,
+    type: 3}
+  whiteboardBreakoutRoom4: {fileID: 840498501314365708, guid: 77b52467290704c43858a32e6616dbe2,
+    type: 3}
+  DestroyWithSpawner: 0
 --- !u!114 &7886193621773718383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49153,6 +49164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GlobalObjectIdHash: 932043496
+  InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0

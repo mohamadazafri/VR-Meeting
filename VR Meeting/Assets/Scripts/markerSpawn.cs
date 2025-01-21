@@ -32,6 +32,8 @@ using UnityEngine;
             }catch (Exception e){
                  Debug.LogError($"marker tak spawned :  {e}");
             }
+
+            base.OnNetworkSpawn();
         }
 
         public override void OnNetworkDespawn()
