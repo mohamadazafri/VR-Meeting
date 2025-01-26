@@ -56,11 +56,8 @@ public sealed class Whiteboard : NetworkBehaviour
     [SerializeField] private float markerSmoothingSpeed = 20f; // Speed for marker smoothing
 
     private Material drawMaterial; // Local reference to the draw material
-    //private NetworkVariable<String> serializedMaterial = new NetworkVariable<String>(value: string.Empty ,readPerm: NetworkVariableReadPermission.Everyone, writePerm:NetworkVariableWritePermission.Server);
     private Vector2? previousUV = null; // Reference to remember last drawn position
-    //[SerializeField] private Material networkMaterial;
-    //[SerializeField] private Renderer whiteboardRenderer;
-    //private Material whiteboardMaterial;
+
     [SerializeField] private GameObject whiteboard;
     private GameObject m_PrefabInstance;
     private NetworkObject m_SpawnedNetworkWhiteboard;
@@ -70,11 +67,7 @@ public sealed class Whiteboard : NetworkBehaviour
     private MeshRenderer heroMarkerRenderer; // Reference to the hero markers renderer
 
     [SerializeField]public Transform vrController; // Assign the VR controller's transform in the Inspector
-    //[SerializeField] private GameObject playerPrefab;
-    //public InputActionProperty triggerAction; // Assign the "Select" action for the right hand in the Inspector
     public InputActionAsset triggerAction; // Assign this in the inspector or load dynamically
-    //public InputActionProperty inputActionProperty; // The variable to assign
-    //public InputAction triggerAction; // Assign the "Select" action for the right hand in the Inspector
 
     private NetworkVariable<Vector2> previousUVNetwork = new NetworkVariable<Vector2>(readPerm: NetworkVariableReadPermission.Everyone, writePerm: NetworkVariableWritePermission.Owner );
     private NetworkVariable<Vector2> currentUVNetwork = new NetworkVariable<Vector2>(readPerm: NetworkVariableReadPermission.Everyone, writePerm: NetworkVariableWritePermission.Owner);

@@ -36,8 +36,7 @@ public class NetworkConnect : MonoBehaviour
 
     public markerSpawn marker;
     public WhiteboardSpawner whiteboard;
-    //public whiteboardSpawner whiteboard;
-    //public GameObject whiteboard;
+    public PollSpawner pollPanel;
 
     public TranscriptMeeting transcriptMeeting;
 
@@ -106,7 +105,7 @@ public class NetworkConnect : MonoBehaviour
                   allocation.AllocationIdBytes, allocation.Key,
                   allocation.ConnectionData);
 
-                Debug.LogError("Lobby Code : " + currentLobby.LobbyCode);
+                //Debug.LogError("Lobby Code : " + currentLobby.LobbyCode);
 
                 playerId = await AuthenticationService.Instance.GetPlayerNameAsync();
                 Debug.Log("Player ID: " + playerId);
@@ -432,13 +431,14 @@ public class NetworkConnect : MonoBehaviour
             //instanceNetworkObject.Spawn();            
             //markerSpawn();
             whiteboardSpawn();
+            pollPanelSpawn();
 
         }
         else if (condition == 1)
         {
             NetworkManager.Singleton.StartClient();
             //markerSpawn();
-            //whiteboardSpawn();
+            whiteboardSpawn();
         }
         else
         {
@@ -453,16 +453,14 @@ public class NetworkConnect : MonoBehaviour
 
     private void whiteboardSpawn()
     {
-        //Whiteboard.Instance.OnNetworkSpawn();
-        //whiteboard.OnNetworkSpawn();
-        //WhiteboardSpawner whiteboard = new WhiteboardSpawner();
-        
         whiteboard.spawnAllWhiteboard();
     }
-    //private void whiteboardsSpawn()
-    //{
-    //    whiteboards.OnNetworkSpawn();
-    //}
+
+    private void pollPanelSpawn()
+    {
+        pollPanel.spawnPoll();
+    }
+
 
 
 }

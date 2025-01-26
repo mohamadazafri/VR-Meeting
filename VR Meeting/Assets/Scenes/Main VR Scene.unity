@@ -18370,6 +18370,7 @@ MonoBehaviour:
   cloudSave: {fileID: 0}
   marker: {fileID: 956777926496085208, guid: d6a758ba573507745bda2832dd7d4fe4, type: 3}
   whiteboard: {fileID: 7882577861747267662}
+  pollPanel: {fileID: 7882577861747267663}
   transcriptMeeting: {fileID: 0}
 --- !u!114 &1528971336
 MonoBehaviour:
@@ -31624,6 +31625,7 @@ GameObject:
   - component: {fileID: 6353049590661479205}
   - component: {fileID: 5551726342838955133}
   - component: {fileID: 7882577861747267662}
+  - component: {fileID: 7882577861747267663}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -47370,6 +47372,21 @@ MonoBehaviour:
   whiteboardBreakoutRoom3: {fileID: 3510929580352850008, guid: 4aa321ae90c354a448fbabd12cc4ec3f,
     type: 3}
   whiteboardBreakoutRoom4: {fileID: 840498501314365708, guid: 77b52467290704c43858a32e6616dbe2,
+    type: 3}
+  DestroyWithSpawner: 0
+--- !u!114 &7882577861747267663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2351038935962872296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae1eec8f0e976e4099888fecd81ecb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pollPanel: {fileID: 5208188895009087853, guid: a077325a0704eb942a20da8022e0e1c0,
     type: 3}
   DestroyWithSpawner: 0
 --- !u!114 &7886193621773718383
