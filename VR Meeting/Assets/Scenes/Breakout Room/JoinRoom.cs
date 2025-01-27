@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ReadyPlayerMe.NetcodeSupport;
 using Unity.Netcode;
+using Unity.Netcode.Components;
 using UnityEngine;
 
 public class JoinRoom : NetworkBehaviour
@@ -32,18 +33,26 @@ public class JoinRoom : NetworkBehaviour
     {
         if (NetworkManager.Singleton.LocalClient.PlayerObject != null)
         {
-            ClientNetworkTransform player = NetworkManager.Singleton.LocalClient.PlayerObject.gameObject.GetComponent<ClientNetworkTransform>();
+            //NetworkTransform player = NetworkManager.Singleton.LocalClient.PlayerObject.gameObject.GetComponent<NetworkTransform>();
+            //player.transform.position = new Vector3(8.2f, 0.23f, 3.92f);
+
+            GameObject player = NetworkManager.Singleton.LocalClient.PlayerObject.gameObject;
             player.transform.position = new Vector3(8.2f, 0.23f, 3.92f);
 
         }
-        RpcUpdatePositionClientRpc();
+        RpcUpdatePositionServerRpc();
     }
 
     //Gets called by the server and run on the client to update the position
-    [ClientRpc]
-    void RpcUpdatePositionClientRpc()
+    //[ClientRpc]
+    [ServerRpc(RequireOwnership = false)]
+    void RpcUpdatePositionServerRpc()
     {
-        NetworkObject player = NetworkManager.Singleton.LocalClient.PlayerObject;
+        //NetworkObject player = NetworkManager.Singleton.LocalClient.PlayerObject;
+        //player.transform.position = new Vector3(8.2f, 0.23f, 3.92f);
+        //NetworkTransform player = NetworkManager.Singleton.LocalClient.PlayerObject.gameObject.GetComponent<NetworkTransform>();
+        //player.transform.position = new Vector3(8.2f, 0.23f, 3.92f);
+        GameObject player = NetworkManager.Singleton.LocalClient.PlayerObject.gameObject;
         player.transform.position = new Vector3(8.2f, 0.23f, 3.92f);
     }
 }

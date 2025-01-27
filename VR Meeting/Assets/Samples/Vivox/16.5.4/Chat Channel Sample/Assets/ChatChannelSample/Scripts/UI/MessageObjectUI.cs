@@ -68,6 +68,17 @@ public class MessageObjectUI : MonoBehaviour
         var editedText = m_vivoxMessage != null ? updatedStatusMessage : null;
 
         m_vivoxMessage = message;
+        if (string.IsNullOrEmpty(message.ChannelName))
+        {
+            EditButton.onClick.RemoveAllListeners();
+            DeleteButton.onClick.RemoveAllListeners();
+            ConfirmCancelButton.onClick.RemoveAllListeners();
+            ConfirmDeleteButton.onClick.RemoveAllListeners();
+            UpdateButton.onClick.RemoveAllListeners();
+            EditButton.gameObject.SetActive(false);
+            DeleteButton.gameObject.SetActive(false);
+        }
+
         if (deleted)
         {
             MessageText.text = string.Format($"<color=#5A5A5A><size=8>{editedText}{message.ReceivedTime}</size></color>");
@@ -83,7 +94,9 @@ public class MessageObjectUI : MonoBehaviour
         else
         {
             MessageText.alignment = TextAnchor.MiddleLeft;
-            MessageText.text = string.Format($"<color=green>{message.SenderDisplayName} </color>: {message.MessageText}\n<color=#5A5A5A><size=8>{editedText}{message.ReceivedTime}</size></color>");
+            MessageText.text = string.IsNullOrEmpty(message.ChannelName)
+                ? string.Format($"<color=purple>{message.SenderDisplayName} </color>: {message.MessageText}\n<color=#5A5A5A><size=8>{editedText}{message.ReceivedTime}</size></color>") // DM
+                : string.Format($"<color=green>{message.SenderDisplayName} </color>: {message.MessageText}\n<color=#5A5A5A><size=8>{editedText}{message.ReceivedTime}</size></color>"); // Channel Message
         }
 
         // If it's your own message you can edit and delete them so lets show those controls

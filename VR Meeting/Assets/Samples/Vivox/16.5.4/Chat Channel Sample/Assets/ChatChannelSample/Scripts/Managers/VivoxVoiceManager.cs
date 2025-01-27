@@ -1,6 +1,8 @@
 using UnityEngine;
 using Unity.Services.Core;
 using Unity.Services.Vivox;
+using System;
+using System.Threading.Tasks;
 #if AUTH_PACKAGE_PRESENT
 using Unity.Services.Authentication;
 #endif
@@ -54,16 +56,14 @@ public class VivoxVoiceManager : MonoBehaviour
         }
     }
 
-
     async void Awake()
     {
         if (m_Instance != this && m_Instance != null)
         {
-            Debug.LogWarning("Multiple VivoxVoiceManager detected in the scene. Only one VivoxVoiceManager can exist at a time. The duplicate VivoxVoiceManager will be destroyed.");
+            Debug.LogWarning(
+                "Multiple VivoxVoiceManager detected in the scene. Only one VivoxVoiceManager can exist at a time. The duplicate VivoxVoiceManager will be destroyed.");
             Destroy(this);
-            return;
         }
-
         var options = new InitializationOptions();
         if (CheckManualCredentials())
         {
@@ -71,15 +71,20 @@ public class VivoxVoiceManager : MonoBehaviour
         }
 
         await UnityServices.InitializeAsync(options);
+        await VivoxService.Instance.InitializeAsync();
+
+    }
+
+    public async Task InitializeAsync(string playerName)
+    {
+
 #if AUTH_PACKAGE_PRESENT
         if (!CheckManualCredentials())
         {
-            AuthenticationService.Instance.ClearSessionToken();
+            AuthenticationService.Instance.SwitchProfile(playerName);
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
 #endif
-
-        await VivoxService.Instance.InitializeAsync();
     }
 
     bool CheckManualCredentials()

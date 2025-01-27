@@ -1,10 +1,11 @@
-﻿using System;
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Unity.Services.Vivox;
-using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 public class LoginScreenUI : MonoBehaviour
 {
@@ -19,11 +20,19 @@ public class LoginScreenUI : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(Setup());
+    }
+
+    IEnumerator Setup()
+    {
         m_EventSystem = FindObjectOfType<EventSystem>();
+        yield return new WaitUntil(() => VivoxService.Instance != null);
+
+
         VivoxService.Instance.LoggedIn += OnUserLoggedIn;
         VivoxService.Instance.LoggedOut += OnUserLoggedOut;
 
-#if !(UNITY_STANDALONE || UNITY_IOS || UNITY_ANDROID)
+#if !(UNITY_STANDALONE || UNITY_IOS || UNITY_ANDROID || UNITY_WEBGL)
         DisplayNameInput.interactable = false;
 #else
         DisplayNameInput.onEndEdit.AddListener((string text) => { LoginToVivoxService(); });
@@ -32,7 +41,9 @@ public class LoginScreenUI : MonoBehaviour
 
         OnUserLoggedOut();
         var systInfoDeviceName = String.IsNullOrWhiteSpace(SystemInfo.deviceName) == false ? SystemInfo.deviceName : Environment.MachineName;
-        DisplayNameInput.text = Environment.MachineName.Substring(0, Math.Min(k_DefaultMaxStringLength, Environment.MachineName.Length));
+        var resizedDisplayName = systInfoDeviceName.Substring(0, Math.Min(k_DefaultMaxStringLength, systInfoDeviceName.Length));
+        // If the name is still somehow empty, pop in a temporary name so it doesn't stop platforms like consoles from signing in.
+        DisplayNameInput.text = string.IsNullOrEmpty(resizedDisplayName) ? "Temp" : resizedDisplayName;
     }
 
     void OnDestroy()
@@ -41,7 +52,7 @@ public class LoginScreenUI : MonoBehaviour
         VivoxService.Instance.LoggedOut -= OnUserLoggedOut;
 
         LoginButton.onClick.RemoveAllListeners();
-#if UNITY_STANDALONE || UNITY_IOS || UNITY_ANDROID
+#if UNITY_STANDALONE || UNITY_IOS || UNITY_ANDROID || UNITY_WEBGL
         DisplayNameInput.onEndEdit.RemoveAllListeners();
 #endif
     }
@@ -151,12 +162,14 @@ public class LoginScreenUI : MonoBehaviour
     {
         LoginButton.interactable = false;
 
+        var correctedDisplayName = Regex.Replace(DisplayNameInput.text, "[^a-zA-Z0-9_-]", "");
+        DisplayNameInput.text = correctedDisplayName.Substring(0, Math.Min(correctedDisplayName.Length, 30));
         if (string.IsNullOrEmpty(DisplayNameInput.text))
         {
             Debug.LogError("Please enter a display name.");
             return;
         }
-
+        await VivoxVoiceManager.Instance.InitializeAsync(DisplayNameInput.text);
         var loginOptions = new LoginOptions()
         {
             DisplayName = DisplayNameInput.text,

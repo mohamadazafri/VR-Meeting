@@ -32,7 +32,7 @@ public class Poll : NetworkBehaviour
     {
 
         // Client-side vote buttons
-        for (int i = 0; i < optionButtons.Length; i++)
+            for (int i = 0; i < optionButtons.Length; i++)
         {
             int index = i; // Capture index for the button
             optionButtons[i].onClick.AddListener(() => SubmitVote(index));
@@ -206,13 +206,18 @@ public class Poll : NetworkBehaviour
 
     }
 
-    public override void OnDestroy()
+    public override void OnNetworkDespawn()
     {
-        currentQuestion.Dispose();
-        currentOptions.Dispose();
-        voteCounts.Dispose();
-        isPollActive.Dispose();
-        
+        //currentQuestion.Dispose();
+        //currentOptions.Dispose();
+        //voteCounts.Dispose();
+        //isPollActive.Dispose();
+
+        currentQuestion.OnValueChanged -= OnQuestionChanged;
+        currentOptions.OnListChanged -= OnOptionsChanged;
+        voteCounts.OnListChanged -= OnVoteCountsChanged;
+        isPollActive.OnValueChanged -= OnPollActiveChanged;
+
         base.OnDestroy();
     }
 

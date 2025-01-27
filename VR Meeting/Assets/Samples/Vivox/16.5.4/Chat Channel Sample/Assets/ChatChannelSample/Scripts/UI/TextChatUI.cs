@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,24 +25,21 @@ public class TextChatUI : MonoBehaviour
     public Dropdown ChannelEffectDropdown;
 
     private Task FetchMessages = null;
+#pragma warning disable CS0414 // Field is assigned but its value is never used
     private DateTime? oldestMessage = null;
+#pragma warning restore CS0414 // Field is assigned but its value is never used
 
     void Start()
     {
         VivoxService.Instance.ChannelJoined += OnChannelJoined;
+        VivoxService.Instance.DirectedMessageReceived += OnDirectedMessageReceived;
         VivoxService.Instance.ChannelMessageReceived += OnChannelMessageReceived;
         VivoxService.Instance.ChannelMessageEdited += OnChannelMessageEdited;
         VivoxService.Instance.ChannelMessageDeleted += OnChannelMessageDeleted;
 
         m_TextChatScrollRect = GetComponent<ScrollRect>();
-        if (m_MessageObjPool.Count > 0)
-        {
-            ClearMessageObjectPool();
-        }
 
-        ClearTextField();
-
-#if !(UNITY_STANDALONE || UNITY_IOS || UNITY_ANDROID)
+#if !(UNITY_STANDALONE || UNITY_IOS || UNITY_ANDROID || UNITY_WEBGL)
         MessageInputField.gameObject.SetActive(false);
         EnterButton.gameObject.SetActive(false);
         SendTTSMessageButton.gameObject.SetActive(false);
@@ -59,6 +56,21 @@ public class TextChatUI : MonoBehaviour
         m_TextChatScrollRect.onValueChanged.AddListener(ScrollRectChange);
     }
 
+    private void OnEnable()
+    {
+        ClearTextField();
+    }
+
+    private void OnDisable()
+    {
+        if (m_MessageObjPool.Count > 0)
+        {
+            ClearMessageObjectPool();
+        }
+
+        oldestMessage = null;
+    }
+
     private void ScrollRectChange(Vector2 vector)
     {
         // Scrolled near end and check if we are fetching history already
@@ -69,8 +81,11 @@ public class TextChatUI : MonoBehaviour
         }
     }
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
     private async Task FetchHistory(bool scrollToBottom = false)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     {
+#if !UNITY_WEBGL
         try
         {
             var chatHistoryOptions = new ChatHistoryQueryOptions()
@@ -97,16 +112,18 @@ public class TextChatUI : MonoBehaviour
         {
             Debug.LogError($"Tried to fetch chat history and failed with error: {e.Message}");
         }
+#endif
     }
 
     void OnDestroy()
     {
         VivoxService.Instance.ChannelJoined -= OnChannelJoined;
+        VivoxService.Instance.DirectedMessageReceived -= OnDirectedMessageReceived;
         VivoxService.Instance.ChannelMessageReceived -= OnChannelMessageReceived;
         VivoxService.Instance.ChannelMessageEdited -= OnChannelMessageEdited;
         VivoxService.Instance.ChannelMessageDeleted -= OnChannelMessageDeleted;
 
-#if UNITY_STANDALONE || UNITY_IOS || UNITY_ANDROID
+#if UNITY_STANDALONE || UNITY_IOS || UNITY_ANDROID || UNITY_WEBGL
         EnterButton.onClick.RemoveAllListeners();
         MessageInputField.onEndEdit.RemoveAllListeners();
         SendTTSMessageButton.onClick.RemoveAllListeners();
@@ -187,6 +204,11 @@ public class TextChatUI : MonoBehaviour
         m_TextChatScrollRect.normalizedPosition = new Vector2(0, 0);
 
         yield return null;
+    }
+
+    void OnDirectedMessageReceived(VivoxMessage message)
+    {
+        AddMessageToChat(message, false, true);
     }
 
     void OnChannelJoined(string channelName)

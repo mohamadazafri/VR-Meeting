@@ -1,4 +1,8 @@
-﻿using System.Threading.Tasks;
+using System.Collections;
+using System.Threading.Tasks;
+#if AUTH_PACKAGE_PRESENT
+using Unity.Services.Authentication;
+#endif
 using Unity.Services.Vivox;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,6 +21,12 @@ public class LobbyScreenUI : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(Setup());
+    }
+
+    IEnumerator Setup()
+    {
+        yield return new WaitUntil(() => VivoxService.Instance != null);
         m_EventSystem = EventSystem.current;
         if (!m_EventSystem)
         {
@@ -42,7 +52,7 @@ public class LobbyScreenUI : MonoBehaviour
         m_ConnectionIndicatorDotImage.color = Color.green;
         m_ConnectionIndicatorDotText.text = "Connected";
 
-        LogoutButton.onClick.AddListener(() => { LogoutOfVivoxService(); });
+        LogoutButton.onClick.AddListener(() => { LogoutOfVivoxServiceAsync(); });
 
         // Make sure the UI is in a reset/off state from the start.
         OnUserLoggedOut();
@@ -64,11 +74,14 @@ public class LobbyScreenUI : MonoBehaviour
         return VivoxService.Instance.JoinGroupChannelAsync(VivoxVoiceManager.LobbyChannelName, ChatCapability.TextAndAudio);
     }
 
-    void LogoutOfVivoxService()
+    async void LogoutOfVivoxServiceAsync()
     {
         LogoutButton.interactable = false;
 
-        VivoxService.Instance.LogoutAsync();
+        await VivoxService.Instance.LogoutAsync();
+#if AUTH_PACKAGE_PRESENT
+        AuthenticationService.Instance.SignOut();
+#endif
     }
 
     async void OnUserLoggedIn()

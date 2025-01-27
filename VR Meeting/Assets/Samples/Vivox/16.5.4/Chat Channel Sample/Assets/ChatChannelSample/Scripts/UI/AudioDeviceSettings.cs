@@ -13,15 +13,22 @@ public class AudioDeviceSettings : MonoBehaviour
 
     public Image DeviceEnergyMask;
 
+    public Text EffectiveInputDeviceText;
+    public Text EffectiveOutputDeviceText;
+
     // Setting based on the min and max acceptable values for Vivox but the range can be adjusted.
     const float k_minSliderVolume = -50;
     const float k_maxSliderVolume = 50;
     const float k_voiceMeterSpeed = 3;
+    const string k_effectiveDevicePrefix = "Effective Device: ";
 
     private void Start()
     {
         VivoxService.Instance.AvailableInputDevicesChanged += RefreshInputDeviceList;
         VivoxService.Instance.AvailableOutputDevicesChanged += RefreshOutputDeviceList;
+        VivoxService.Instance.EffectiveInputDeviceChanged += EffectiveInputDeviceChanged;
+        VivoxService.Instance.EffectiveOutputDeviceChanged += EffectiveOutputDeviceChanged;
+
 
         InputDeviceDropdown.onValueChanged.AddListener((i) =>
         {
@@ -56,6 +63,8 @@ public class AudioDeviceSettings : MonoBehaviour
 
         InputDeviceVolume.value = VivoxService.Instance.InputDeviceVolume;
         OutputDeviceVolume.value = VivoxService.Instance.OutputDeviceVolume;
+        EffectiveInputDeviceText.text = $"{k_effectiveDevicePrefix} {VivoxService.Instance.EffectiveInputDevice.DeviceName}";
+        EffectiveOutputDeviceText.text = $"{k_effectiveDevicePrefix} {VivoxService.Instance.EffectiveOutputDevice.DeviceName}";
     }
 
     void OnDestroy()
@@ -102,12 +111,22 @@ public class AudioDeviceSettings : MonoBehaviour
 
     void InputDeviceValueChanged(int index)
     {
-        VivoxService.Instance.SetActiveInputDeviceAsync(VivoxService.Instance.AvailableInputDevices.Where(device => device.DeviceName == InputDeviceDropdown.options[index].text).First());
+        VivoxService.Instance.SetActiveInputDeviceAsync(VivoxService.Instance.AvailableInputDevices.First(device => device.DeviceName == InputDeviceDropdown.options[index].text));
+    }
+
+    void EffectiveInputDeviceChanged()
+    {
+        EffectiveInputDeviceText.text = $"{k_effectiveDevicePrefix} {VivoxService.Instance.EffectiveInputDevice.DeviceName}";
     }
 
     void OutputDeviceValueChanged(int index)
     {
-        VivoxService.Instance.SetActiveOutputDeviceAsync(VivoxService.Instance.AvailableOutputDevices.Where(device => device.DeviceName == OutputDeviceDropdown.options[index].text).First());
+        VivoxService.Instance.SetActiveOutputDeviceAsync(VivoxService.Instance.AvailableOutputDevices.First(device => device.DeviceName == OutputDeviceDropdown.options[index].text));
+    }
+
+    void EffectiveOutputDeviceChanged()
+    {
+        EffectiveOutputDeviceText.text = $"{k_effectiveDevicePrefix} {VivoxService.Instance.EffectiveOutputDevice.DeviceName}";
     }
 
     private void OnInputVolumeChanged(float val)

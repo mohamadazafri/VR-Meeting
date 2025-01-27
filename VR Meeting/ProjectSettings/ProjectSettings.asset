@@ -77,7 +77,7 @@ PlayerSettings:
   androidFullscreenMode: 1
   defaultIsNativeResolution: 1
   macRetinaSupport: 1
-  runInBackground: 0
+  runInBackground: 1
   captureSingleScreen: 0
   muteOtherAudioSources: 0
   Prepare IOS For Recording: 0
@@ -136,9 +136,7 @@ PlayerSettings:
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
   bundleVersion: 0.1.0
-  preloadedAssets:
-  - {fileID: 3916911403121963859, guid: b39a4b5c829f7084da1562f3f28bb9a6, type: 2}
-  - {fileID: -5925160454508010886, guid: 08766aa18eea88047b467f29737edd1b, type: 2}
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -929,11 +927,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 0aa6b4c4-353d-4dc2-bad7-774bcc533719
+  cloudProjectId: 3be74643-2947-4797-89cb-98703c14c598
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: VR Meeting
-  organizationId: mohamadazafri
+  organizationId: mayghaa
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

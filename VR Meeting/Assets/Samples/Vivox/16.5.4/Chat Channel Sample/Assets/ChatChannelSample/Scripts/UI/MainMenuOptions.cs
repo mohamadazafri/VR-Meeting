@@ -26,7 +26,12 @@ public class MainMenuOptions : MonoBehaviour
         // Setup menu objects on awake
         m_optionsMenuPanel.SetActive(false);
         // Fill the TTS dropdown with all possible options
+#if !UNITY_WEBGL
         PopulateTextToSpeechDropdown();
+#else
+        //The only settings are related to TTS so hide the button completely if this is WebGL
+        GameObject.Find("Settings").SetActive(false);
+#endif
         // Fetch the current EventSystem
         m_EventSystem = EventSystem.current;
         // Bind all the ui actions
