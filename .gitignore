@@ -75,3 +75,5 @@ crashlytics-build.properties
 Output/
 Output WebGL/
 Output Windows/
+Output Test Vivox/
+Output Android/

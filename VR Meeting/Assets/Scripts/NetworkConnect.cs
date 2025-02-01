@@ -15,6 +15,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 using TMPro;
 using Samples.Whisper;
+using Unity.Services.Vivox;
 
 public class NetworkConnect : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public class NetworkConnect : MonoBehaviour
     public PollSpawner pollPanel;
 
     public TranscriptMeeting transcriptMeeting;
+    public VivoxVoiceManager vivoxVoiceManager; 
 
     private async void Awake()
     {
@@ -432,13 +434,15 @@ public class NetworkConnect : MonoBehaviour
             //markerSpawn();
             whiteboardSpawn();
             pollPanelSpawn();
-
+            loginVivox();  
         }
         else if (condition == 1)
         {
             NetworkManager.Singleton.StartClient();
             //markerSpawn();
-            whiteboardSpawn();
+            //whiteboardSpawn();
+            loginVivox();
+
         }
         else
         {
@@ -461,6 +465,10 @@ public class NetworkConnect : MonoBehaviour
         pollPanel.spawnPoll();
     }
 
+    private void loginVivox()
+    {
+        vivoxVoiceManager.LoginToVivoxService();
 
+    }
 
 }

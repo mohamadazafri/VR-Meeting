@@ -29,6 +29,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Meeting Room 5.unity
     guid: c91b873fdf1653147bf59c69edbe95c6
+  - enabled: 0
+    path: Assets/Samples/Vivox/16.5.4/Chat Channel Sample/Assets/ChatChannelSample/Scenes/MainScene.unity
+    guid: dbc457e6df4234749aff8bd5ffa028ef
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: b39a4b5c829f7084da1562f3f28bb9a6,
       type: 2}

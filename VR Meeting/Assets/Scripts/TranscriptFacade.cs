@@ -45,7 +45,8 @@ public class TranscriptFacade
         {
             FileData = new FileData { Data = audioData, Name = "audio.wav" },
             Model = "whisper-1",
-            Language = language
+            Language = language,
+            Prompt = "Include me a timestamp whenever you heard a sound"
         };
 
         try

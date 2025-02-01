@@ -6,6 +6,7 @@ using Unity.Services.Authentication;
 using System.Threading.Tasks;
 using TMPro;
 using System;
+using Unity.Services.Vivox;
 //using UnityEditor.Search;
 
 public class AuthManager : MonoBehaviour
@@ -98,6 +99,8 @@ public class AuthManager : MonoBehaviour
         try
         {
             await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username,password);
+            await VivoxService.Instance.InitializeAsync();
+
             Debug.Log("Sign Up Successful");
             IsUserSignedIn = true;
         }
@@ -118,6 +121,7 @@ public class AuthManager : MonoBehaviour
         {
             await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
             await AuthenticationService.Instance.UpdatePlayerNameAsync(username);
+            await VivoxService.Instance.InitializeAsync();
 
             Debug.Log("Sign In Successful");
             IsUserSignedIn = true;

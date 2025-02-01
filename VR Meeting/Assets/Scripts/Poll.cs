@@ -206,7 +206,7 @@ public class Poll : NetworkBehaviour
 
     }
 
-    public override void OnNetworkDespawn()
+    void OnDestroy()
     {
         //currentQuestion.Dispose();
         //currentOptions.Dispose();
