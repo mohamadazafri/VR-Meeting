@@ -77,3 +77,6 @@ Output WebGL/
 Output Windows/
 Output Test Vivox/
 Output Android/
+VR Meeting/Assets/Scripts/auth.json
+VR Meeting/Assets/Resources/HuggingFaceAPIConfig.asset
+VR Meeting/Assets/Resources/HuggingFaceAPIConfig.asset.meta
