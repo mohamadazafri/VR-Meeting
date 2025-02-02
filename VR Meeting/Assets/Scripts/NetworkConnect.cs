@@ -427,11 +427,6 @@ public class NetworkConnect : MonoBehaviour
         if (condition == 0)
         {
             NetworkManager.Singleton.StartHost();
-
-            //var instance = Instantiate(whiteboard);
-            //var instanceNetworkObject = instance.GetComponent<NetworkObject>();
-            //instanceNetworkObject.Spawn();            
-            //markerSpawn();
             whiteboardSpawn();
             pollPanelSpawn();
             loginVivox();  
@@ -439,8 +434,6 @@ public class NetworkConnect : MonoBehaviour
         else if (condition == 1)
         {
             NetworkManager.Singleton.StartClient();
-            //markerSpawn();
-            //whiteboardSpawn();
             loginVivox();
 
         }

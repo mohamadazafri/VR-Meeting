@@ -14,25 +14,25 @@ public class LobbyMenu : MonoBehaviour
     public GameObject scheduleMeetingPage;
 
     // Buttons in Login Page
-    public Button loginSubmitButton;
+    //public Button loginSubmitButton;
 
     // Buttons in Register Page
-    public Button registerSubmitButton;
+    //public Button registerSubmitButton;
 
     // Buttons in Main Menu
-    public Button createMeetingButton;
-    public Button joinMeetingButton;
-    public Button viewMeetingButton;
-    public Button scheduleMeetingButton;
+    //public Button createMeetingButton;
+    //public Button joinMeetingButton;
+    //public Button viewMeetingButton;
+    //public Button scheduleMeetingButton;
 
-    // Buttons in Create Page
-    public Button createMeetingSubmitButton;
+    //// Buttons in Create Page
+    //public Button createMeetingSubmitButton;
 
-    // Buttons in Join Page
-    public Button joinMeetingSubmitButton;
+    //// Buttons in Join Page
+    //public Button joinMeetingSubmitButton;
 
-    // Buttons in Schedule Page
-    public Button scheduleMeetingSubmitButton;
+    //// Buttons in Schedule Page
+    //public Button scheduleMeetingSubmitButton;
 
     // Other Components
     //public NetworkConnect networkConnect;
@@ -47,19 +47,19 @@ public class LobbyMenu : MonoBehaviour
     {
         EnableLoginPage();
 
-        loginSubmitButton.onClick.AddListener(LoginSubmit);
-        registerSubmitButton.onClick.AddListener(RegisterSubmit);
+        //loginSubmitButton.onClick.AddListener(LoginSubmit);
+        //registerSubmitButton.onClick.AddListener(RegisterSubmit);
 
-        scheduleMeetingButton.onClick.AddListener(EnableScheduleMeetingPage);
-        createMeetingButton.onClick.AddListener(EnableCreatePage);
-        joinMeetingButton.onClick.AddListener(EnableJoinPage);
-        viewMeetingButton.onClick.AddListener(EnableViewMeetingPage);
+        //scheduleMeetingButton.onClick.AddListener(EnableScheduleMeetingPage);
+        //createMeetingButton.onClick.AddListener(EnableCreatePage);
+        //joinMeetingButton.onClick.AddListener(EnableJoinPage);
+        //viewMeetingButton.onClick.AddListener(EnableViewMeetingPage);
 
-        createMeetingSubmitButton.onClick.AddListener(CreateMeetingSubmit);
+        //createMeetingSubmitButton.onClick.AddListener(CreateMeetingSubmit);
 
-        joinMeetingSubmitButton.onClick.AddListener(JoinMeetingSubmit);
+        //joinMeetingSubmitButton.onClick.AddListener(JoinMeetingSubmit);
 
-        scheduleMeetingSubmitButton.onClick.AddListener(ScheduleMeetingSubmit);
+        //scheduleMeetingSubmitButton.onClick.AddListener(ScheduleMeetingSubmit);
 
         foreach (var returnButton in returnButtons)
         {
@@ -93,24 +93,6 @@ public class LobbyMenu : MonoBehaviour
         scheduleMeetingPage.SetActive(false);
     }
 
-    void LoginSubmit()
-    {
-        // Implement your login logic using nc
-        // Example: nc.Login(username, password);
-
-        // Assuming successful login, enable the main menu
-       
-    }
-
-    void RegisterSubmit()
-    {
-        // Implement your registration logic using nc
-        // Example: nc.Register(username, password);
-
-        // Assuming successful registration, enable the main menu
-        
-    }
-
     public void EnableMainMenu()
     {
         loginPage.SetActive(false);
@@ -121,7 +103,7 @@ public class LobbyMenu : MonoBehaviour
         scheduleMeetingPage.SetActive(false);
     }
 
-    void EnableScheduleMeetingPage()
+    public void EnableScheduleMeetingPage()
     {
         mainMenu.SetActive(false);
         createPage.SetActive(false);
@@ -129,17 +111,17 @@ public class LobbyMenu : MonoBehaviour
         viewMeetingPage.SetActive(false);
         scheduleMeetingPage.SetActive(true);
     }
-    void EnableCreatePage()
+    public void EnableCreatePage()
     {
         mainMenu.SetActive(false);
         createPage.SetActive(true);
         joinPage.SetActive(false);
         viewMeetingPage.SetActive(false);
         scheduleMeetingPage.SetActive(false);
-        createMeetingSubmitButton.interactable = true;
+        //createMeetingSubmitButton.interactable = true;
     }
 
-    void EnableJoinPage()
+    public void EnableJoinPage()
     {
         mainMenu.SetActive(false);
         createPage.SetActive(false);
@@ -148,7 +130,7 @@ public class LobbyMenu : MonoBehaviour
         scheduleMeetingPage.SetActive(false);
     }
 
-    async void EnableViewMeetingPage()
+    public async void EnableViewMeetingPage()
     {
         await meetingDisplay.InitializeMeetingsDisplayAsync(); // Use await here
 
@@ -159,15 +141,7 @@ public class LobbyMenu : MonoBehaviour
         scheduleMeetingPage.SetActive(false);
     }
 
-    void CreateMeetingSubmit()
-    {
-    }
-
-    void JoinMeetingSubmit()
-    {
-    }
-
-    void ScheduleMeetingSubmit()
+    public void ScheduleMeetingSubmit()
     {
         cloudSave.SaveData("", "");
     }

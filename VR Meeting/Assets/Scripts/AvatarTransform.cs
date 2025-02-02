@@ -17,6 +17,9 @@ public class AvatarTransform : MonoBehaviour
     [SerializeField] private Button selectButton4;
     [SerializeField] private Button selectButton5;
     [SerializeField] private Renderer[] meshToDisable;
+    [SerializeField] private GameObject mobileController;
+    [SerializeField] private GameObject mobileControllerButtons;
+    [SerializeField] private GameObject mobileControllerCrosshair;
 
 
     // Start is called before the first frame update
@@ -40,6 +43,11 @@ public class AvatarTransform : MonoBehaviour
             }
         }*/
 
+        #if (UNITY_ANDROID || UNITY_EDITOR) || __ANDROID__
+            mobileController.SetActive(true);
+            mobileControllerButtons.SetActive(true);
+            mobileControllerCrosshair.SetActive(true);
+        #endif
         player.SetActive(true);
 
         //ChangeToXRView();

@@ -6,11 +6,12 @@ TagManager:
   tags:
   - WhiteBoard
   - Marker
+  - Bullet
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - MainPageUI
   - Water
   - UI
   - 
