@@ -6,9 +6,6 @@ using UnityEngine;
 public class PollSpawner : NetworkBehaviour
 {
     [SerializeField] private GameObject pollPanel;
-
-    private bool hasSpawned = false;
-    private GameObject m_PrefabInstance;
     private NetworkObject SpawnedNetworkPollPanel;
     public bool DestroyWithSpawner;
 

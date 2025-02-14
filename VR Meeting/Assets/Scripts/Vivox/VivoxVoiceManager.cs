@@ -50,18 +50,15 @@ public class VivoxVoiceManager : MonoBehaviour
         try
         {
             string displayName = "John Doe " + Random.Range(2f, 10f).ToString();
-            //await VivoxVoiceConfig.Instance.InitializeAsync(displayName);
             var loginOptions = new LoginOptions()
             {
                 DisplayName = displayName,
                 ParticipantUpdateFrequency = ParticipantPropertyUpdateFrequency.FivePerSecond
             };
-            //await VivoxService.Instance.LoginAsync(loginOptions);
             await Task.Delay(500); // Wait for a short period
             await VivoxService.Instance.LeaveAllChannelsAsync();
             await Task.Delay(500); // Wait for a short period
             await VivoxService.Instance.JoinGroupChannelAsync(VivoxVoiceConfig.LobbyChannelName, ChatCapability.TextAndAudio);
-            //await JoinLobbyChannel();
             await Task.Delay(500); // Wait for a short period
             await VivoxService.Instance.SpeechToTextEnableTranscription(VivoxVoiceConfig.LobbyChannelName);
         }

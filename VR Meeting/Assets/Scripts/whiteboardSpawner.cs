@@ -6,14 +6,12 @@ using UnityEngine;
 
 public class WhiteboardSpawner : NetworkBehaviour
 {
-    [SerializeField] private GameObject whiteboardMain;
+    [SerializeField] private GameObject whiteboardMain; 
     [SerializeField] private GameObject whiteboardBreakoutRoom1;
     [SerializeField] private GameObject whiteboardBreakoutRoom2;
     [SerializeField] private GameObject whiteboardBreakoutRoom3;
     [SerializeField] private GameObject whiteboardBreakoutRoom4;
 
-    private bool hasSpawned = false;
-    private GameObject m_PrefabInstance;
     private NetworkObject m_SpawnedNetworkWhiteboard;
     public bool DestroyWithSpawner;
 

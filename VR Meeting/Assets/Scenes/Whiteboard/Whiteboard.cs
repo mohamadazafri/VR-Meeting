@@ -59,10 +59,7 @@ public sealed class Whiteboard : NetworkBehaviour
     private Vector2? previousUV = null; // Reference to remember last drawn position
 
     [SerializeField] private GameObject whiteboard;
-    private GameObject m_PrefabInstance;
-    private NetworkObject m_SpawnedNetworkWhiteboard;
     public bool DestroyWithSpawner;
-    private bool hasSpawned = false;
 
     private MeshRenderer heroMarkerRenderer; // Reference to the hero markers renderer
 
@@ -73,28 +70,6 @@ public sealed class Whiteboard : NetworkBehaviour
     private NetworkVariable<Vector2> currentUVNetwork = new NetworkVariable<Vector2>(readPerm: NetworkVariableReadPermission.Everyone, writePerm: NetworkVariableWritePermission.Owner);
 
     [SerializeField] public GameObject canvasText; // Assign the VR controller's transform in the Inspector
-
-    private static Whiteboard instance = null;
-    private static readonly object padlock = new object();
-
-    Whiteboard()
-    {
-    }
-
-    public static Whiteboard Instance
-    {
-        get
-        {
-            lock (padlock)
-            {
-                if (instance == null)
-                {
-                    instance = new Whiteboard();
-                }
-                return instance;
-            }
-        }
-    }
 
     private void Start()
     {
@@ -457,123 +432,6 @@ public sealed class Whiteboard : NetworkBehaviour
         base.OnNetworkDespawn();
     }
 
-    // Server updates the position
-    //[ServerRpc]
-    //public void UpdatePositionServerRpc(Vector2 previousPosition, Vector2 currentPosition)
-    //{
-    //    previousUVNetwork.Value = previousPosition; // This syncs with all clients
-    //    currentUVNetwork.Value = currentPosition; // This syncs with all clients
 
-    //}
-
-
-    //public struct NetMaterial : INetworkSerializable, System.IEquatable<NetMaterial> {
-    //    public Material material;
-    //    public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
-    //    {
-
-    //    }
-
-    //    //public bool Equals([CanBeNull] NetMaterial other) { 
-    //    //    if(String.Equals(other.material, material, StringComparison.CurrentCultureIgnoreCase)) return true;
-    //    //}
-    //}
-
-    // Server function to update the material
-    //[ServerRpc(RequireOwnership = false)]
-    //public void UpdateMaterialServerRpc()
-    //{
-    //    if (whiteboardMaterial != null)
-    //    {
-    //        // Serialize the current material
-    //        string serializedData = SerializeMaterial(whiteboardMaterial);
-
-    //        // Update the NetworkVariable
-    //        serializedMaterial.Value = serializedData;
-    //    }
-    //}
-
-    // Callback when the serialized material data changes
-    //private void OnSerializedMaterialChanged(string oldValue, string newValue)
-    //{
-    //    // Apply the new material
-    //    ApplySerializedMaterial(newValue);
-    //}
-
-    // Apply the deserialized material to the whiteboard
-    //private void ApplySerializedMaterial(string serializedData)
-    //{
-    //    Material deserializedMaterial = DeserializeMaterial(serializedData);
-    //    if (deserializedMaterial != null)
-    //    {
-    //        whiteboardRenderer.material = deserializedMaterial;
-    //    }
-    //}
-
-    //public void whiteboardChange()
-    //{
-    //    networkDrawMaterial.Value = networkMaterial;
-    //}
-
-    // Serialize material properties to a byte array
-    private string SerializeMaterial(Material material)
-    {
-        using (MemoryStream memoryStream = new MemoryStream())
-        {
-            BinaryFormatter formatter = new BinaryFormatter();
-
-            // Create a serializable material structure
-            var materialData = new SerializableMaterial
-            {
-                ShaderName = material.shader.name,
-                Color = material.color,
-                MainTextureName = material.mainTexture != null ? material.mainTexture.name : null
-            };
-
-            // Serialize the structure into a byte array
-            formatter.Serialize(memoryStream, materialData);
-
-            // Convert the byte array to a Base64 string
-            return Convert.ToBase64String(memoryStream.ToArray());
-        }
-    }
-
-    // Deserialize material properties from a byte array
-    private Material DeserializeMaterial(string serializedData)
-    {
-        if (string.IsNullOrEmpty(serializedData))
-            return null;
-
-        // Convert Base64 string back to byte array
-        byte[] data = Convert.FromBase64String(serializedData);
-
-        using (MemoryStream memoryStream = new MemoryStream(data))
-        {
-            BinaryFormatter formatter = new BinaryFormatter();
-
-            // Deserialize into the SerializableMaterial structure
-            var materialData = (SerializableMaterial)formatter.Deserialize(memoryStream);
-
-            // Reconstruct the Material
-            Material newMaterial = new Material(Shader.Find(materialData.ShaderName));
-            newMaterial.color = materialData.Color;
-
-            if (!string.IsNullOrEmpty(materialData.MainTextureName))
-            {
-                Texture texture = Resources.Load<Texture>($"Textures/{materialData.MainTextureName}");
-                newMaterial.mainTexture = texture;
-            }
-
-            return newMaterial;
-        }
-    }
 }
 
-// Helper class to hold material properties
-[Serializable]
-public class SerializableMaterial
-{
-    public string ShaderName;
-    public Color Color;
-    public string MainTextureName;
-}

@@ -36,11 +36,11 @@ public class NetworkConnect : MonoBehaviour
     public CloudSave cloudSave;
 
     public markerSpawn marker;
-    public WhiteboardSpawner whiteboard;
-    public PollSpawner pollPanel;
+    //public WhiteboardSpawner whiteboard;
+    //public PollSpawner pollPanel;
 
     public TranscriptMeeting transcriptMeeting;
-    public VivoxVoiceManager vivoxVoiceManager; 
+    //public VivoxVoiceManager vivoxVoiceManager; 
 
     private async void Awake()
     {
@@ -426,22 +426,20 @@ public class NetworkConnect : MonoBehaviour
 
         if (condition == 0)
         {
-            NetworkManager.Singleton.StartHost();
+            Player hostPlayer = new HostPlayer();
+            hostPlayer.clone();
+            hostPlayer.startServer();
+            hostPlayer.spawnWhiteboard();
+            hostPlayer.spawnPoll();
+            hostPlayer.loginVivox();
 
-            //var instance = Instantiate(whiteboard);
-            //var instanceNetworkObject = instance.GetComponent<NetworkObject>();
-            //instanceNetworkObject.Spawn();            
-            //markerSpawn();
-            whiteboardSpawn();
-            pollPanelSpawn();
-            loginVivox();  
         }
         else if (condition == 1)
         {
-            NetworkManager.Singleton.StartClient();
-            //markerSpawn();
-            //whiteboardSpawn();
-            loginVivox();
+            Player clientPlayer = new ClientPlayer();
+            clientPlayer.clone();
+            clientPlayer.startServer();
+            clientPlayer.loginVivox();
 
         }
         else
@@ -450,25 +448,9 @@ public class NetworkConnect : MonoBehaviour
         }
     }
 
-    private void markerSpawn()
-    {
-        marker.OnNetworkSpawn();
-    }
-
-    private void whiteboardSpawn()
-    {
-        whiteboard.spawnAllWhiteboard();
-    }
-
-    private void pollPanelSpawn()
-    {
-        pollPanel.spawnPoll();
-    }
-
-    private void loginVivox()
-    {
-        vivoxVoiceManager.LoginToVivoxService();
-
-    }
+    //private void markerSpawn()
+    //{
+    //    marker.OnNetworkSpawn();
+    //}
 
 }
